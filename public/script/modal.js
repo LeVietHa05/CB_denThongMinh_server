@@ -37,7 +37,7 @@ let indexInfoContent = `
 let alarmInfoContent = `
 <div class="modal-container">
     <h1 class="modal-container-h1" id="indexInfoModalH1">Cảnh Báo</h1>
-    <div class="modal-container-content text-center" id="indexInfoModalP">Có rung chấn tại vùng lân cận, hãy kiểm tra trong mục thông báo! </div>
+    <div class="modal-container-content text-center" id="indexInfoModalP">Có trường hợp khẩn cấp xảy ra, mau sơ tán! Hãy kiểm tra mục thông báo để biết thêm thông tin chi tiết! </div>
     <div class="modal-close-btn-x">
         <span class="material-symbols-outlined">
             close
@@ -104,7 +104,7 @@ function fetchNoti() {
                 let noti = new NotiGen(element.title, element.content, element.time, element.type, element.isNotiNew, element.isRead);
                 // console.log(noti);
                 //check if noti is newly create in  today
-                if (isNotiCreatedToday == false) {
+                if (isNotiCreatedToday == false && noti.type == 'alarm') {
                     let today = new Date();
                     let notiTime = new Date(noti.notiTime);
                     if (notiTime.getDate() == today.getDate() && notiTime.getMonth() == today.getMonth() && notiTime.getFullYear() == today.getFullYear()) {
