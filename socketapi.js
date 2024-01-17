@@ -100,6 +100,25 @@ io.on("connection", (socket) => {
                 })
                 if (res.acknowledged) console.log("added data to deviceID: " + data.clientID);
                 else console.log("failed to add data");
+                if (data.data1.mq7 > 3) {
+                    console.log("got gas warning. Adding noti to mongodb");
+                    //add noti to this deviceID only
+                    let res = await accountModel.updateOne({ deviceID: data.clientID }, {
+                        $push: {
+                            noti: {
+                                time: Date.now(),
+                                type: "alarm",
+                                title: "Gas warning",
+                                content: "Gas warning. There is a gas leak / fire in your area. Please be careful.",
+                                isRead: false,
+                                isNotiNew: true,
+                                isActive: true,
+                            }
+                        }
+                    });
+                   if (res.acknowledged) console.log("added fire alarm noti to deviceID: " + data.clientID);
+                   else console.log("failed to add noti");
+                }
             } catch (error) {
                 console.log(error);
             }
