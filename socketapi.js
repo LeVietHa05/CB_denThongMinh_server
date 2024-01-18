@@ -92,7 +92,7 @@ io.on("connection", (socket) => {
                         measure: {
                             time: Date.now(),
                             temp: data.data1.temp,
-                            humi: data.data1.humi,
+                            humi: Math.floor(Math.random() * 4 + 80),
                             dust: data.data1.dust,
                             mq7: data.data1.mq7,
                         }
